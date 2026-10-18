@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; worker-src 'self' blob:; connect-src 'self' https:; img-src 'self' blob: data:; style-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Archivio">
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#11151b" media="(prefers-color-scheme: dark)">
+<title>Archivio medico</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<section id="accesso" class="accesso" hidden>
+  <div class="accesso-box">
+    <img src="icon-192.png" alt="" width="72" height="72">
+    <h1>Archivio medico</h1>
+    <p class="hint">Consultazione in sola lettura dei documenti salvati nel tuo OneDrive.</p>
+    <button type="button" id="btn-accedi">Accedi con Microsoft</button>
+    <p id="accesso-err" class="err" role="alert"></p>
+  </div>
+</section>
+
+<section id="config" class="accesso" hidden>
+  <div class="accesso-box">
+    <h1>Configurazione mancante</h1>
+    <p class="hint">Inserisci l'ID applicazione Microsoft nel file <b>config.js</b>.</p>
+  </div>
+</section>
+
+<main id="app" hidden>
+  <header class="top">
+    <h1>Archivio medico</h1>
+    <div class="top-actions">
+      <button type="button" id="btn-aggiorna" class="ghost icona" aria-label="Aggiorna l'elenco">↻</button>
+      <button type="button" id="btn-menu" class="ghost icona" aria-label="Menu" aria-expanded="false">⋯</button>
+    </div>
+  </header>
+  <div id="menu" class="menu" hidden>
+    <p id="menu-info" class="hint"></p>
+    <button type="button" id="btn-svuota" class="ghost">Elimina i documenti salvati sul telefono</button>
+    <button type="button" id="btn-esci" class="ghost">Esci</button>
+  </div>
+  <p id="msg" class="msg" role="status"></p>
+
+  <section class="stats" id="stats"></section>
+
+  <section class="filters">
+    <input id="f-q" type="search" placeholder="Cerca esame, struttura, medico…" aria-label="Cerca" autocomplete="off">
+    <div id="chips" class="chips" role="group" aria-label="Categoria"></div>
+    <button type="button" id="btn-filtri" class="ghost link" aria-expanded="false">Altri filtri</button>
+    <div id="altri" class="altri" hidden>
+      <label>Dal <input id="f-da" type="date"></label>
+      <label>Al <input id="f-a" type="date"></label>
+      <select id="f-str" aria-label="Struttura"></select>
+      <select id="f-med" aria-label="Medico"></select>
+      <label>Raggruppa per
+        <select id="f-group">
+          <option value="">Nessuno</option>
+          <option value="anno">Anno</option>
+          <option value="categoria">Categoria</option>
+          <option value="struttura">Struttura</option>
+          <option value="medico">Medico</option>
+        </select>
+      </label>
+      <label>Ordina per
+        <select id="f-sort">
+          <option value="data-desc">Data: più recenti</option>
+          <option value="data-asc">Data: meno recenti</option>
+          <option value="titolo">Esame/visita (A-Z)</option>
+        </select>
+      </label>
+      <button type="button" id="btn-reset" class="ghost">Azzera filtri</button>
+    </div>
+  </section>
+
+  <p id="count" class="count"></p>
+  <ul id="lista" class="lista"></ul>
+</main>
+
+<section id="viewer" class="viewer" hidden role="dialog" aria-modal="true" aria-labelledby="v-titolo">
+  <header class="v-top">
+    <button type="button" id="v-chiudi" class="ghost">‹ Elenco</button>
+    <button type="button" id="v-condividi" class="ghost" hidden>Condividi</button>
+  </header>
+  <div class="v-info">
+    <h2 id="v-titolo"></h2>
+    <dl id="v-meta"></dl>
+  </div>
+  <p id="v-stato" class="v-stato" role="status"></p>
+  <div id="v-pagine" class="v-pagine"></div>
+</section>
+
+<script src="config.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
