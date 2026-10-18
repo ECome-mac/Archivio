@@ -1,5 +1,5 @@
 // Tiene in memoria i file dell'app per aprirla anche offline. I dati arrivano da OneDrive e non passano di qui.
-const VERSIONE = "archivio-app-1";
+const VERSIONE = "archivio-app-2";
 const FILE = ["./", "index.html", "app.css", "app.js", "config.js", "manifest.webmanifest", "icon-180.png", "icon-192.png", "icon-512.png",
   "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js",
   "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"];
